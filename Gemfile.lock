@@ -1,0 +1,37 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    aws-eventstream (1.2.0)
+    aws-partitions (1.555.0)
+    aws-sdk-athena (1.49.0)
+      aws-sdk-core (~> 3, >= 3.126.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-core (3.126.2)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.525.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-kms (1.54.0)
+      aws-sdk-core (~> 3, >= 3.126.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.112.0)
+      aws-sdk-core (~> 3, >= 3.126.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.4.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+    csv-utils (0.3.14)
+      inheritance-helper
+    inheritance-helper (0.2.5)
+    jmespath (1.6.0)
+
+PLATFORMS
+  x86_64-darwin-20
+
+DEPENDENCIES
+  aws-sdk-athena
+  aws-sdk-s3
+  csv-utils
+
+BUNDLED WITH
+   2.2.3
