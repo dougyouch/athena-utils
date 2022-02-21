@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby
+
+require 'athena-utils'
+require 'optparse'
+
+options = {
+  database: nil,
+  output_location: nil,
+  query: nil,
+  save: nil
+}
+OptionParser.new do |opts|
+  opts.banner = "Usage: athena [options]"
+
+  opts.on("-d", "--database DATABASE", "Athena DB") do |v|
+    options[:database] = v
+  end
+
+  opts.on("-o", "--output-location OUTPUT_LOCATION", "S3 output location for athena queries") do |v|
+    options[:output_location] = v
+  end
+
+  opts.on("-q", "--query QUERY", "SQL Query") do |v|
+    options[:query] = v
+  end
+
+  opts.on('-s', '--save FILE', 'Save query results to file') do |v|
+    options[:save] = v
+  end
+end.parse!
+
+raise('must specify a database') unless options[:database]
+raise('must specify output location for athean queries') unless options[:output_location]
+
+@athena = AthenaUtils::AthenaClient.new(options[:database], options[:output_location])
+def athena
+  @athena
+end
+
+if options[:query]
+  @results = athena.query(options[:query])
+  def results
+    @results
+  end
+
+  if options[:save]
+    results.save(options[:save])
+    exit
+  end
+end
+
+require 'irb'
+IRB.start
+
