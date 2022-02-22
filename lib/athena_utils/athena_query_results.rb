@@ -1,14 +1,16 @@
 require 'aws-sdk-s3'
-require 'csv-utils'
+require 'csv'
 
 module AthenaUtils
   class AthenaQueryResults
     include Enumerable
 
-    attr_reader :query_status
+    attr_reader :query_status,
+                :aws_s3_client
 
-    def initialize(query_status)
+    def initialize(query_status, aws_s3_client)
       @query_status = query_status
+      @aws_s3_client = aws_s3_client
     end
 
     def s3_url
@@ -38,20 +40,21 @@ module AthenaUtils
       )
     end
 
-    def aws_s3_client
-      @aws_s3_client ||= create_aws_s3_client
+    def csv
+      @csv ||= CSV.new(s3_object.body)
     end
 
-    def create_aws_s3_client
-      Aws::S3::Client.new
+    def headers
+      csv.rewind
+      csv.shift
     end
 
-    def csv_iterator
-      @csv_iterator ||= CSVUtils::CSVIterator.new(CSV.new(s3_object.body))
-    end
-
-    def each(&block)
-      csv_iterator.each(&block)
+    def each
+      csv.rewind
+      headers = csv.shift
+      while (row = csv.shift)
+        yield Hash[headers.zip(row)]
+      end
     end
   end
 end

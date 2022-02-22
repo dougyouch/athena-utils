@@ -20,7 +20,7 @@ OptionParser.new do |opts|
     options[:output_location] = v
   end
 
-  opts.on("-q", "--query QUERY", "SQL Query") do |v|
+  opts.on("-e", "--execute QUERY", "Execute SQL Query") do |v|
     options[:query] = v
   end
 

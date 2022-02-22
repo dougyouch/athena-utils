@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'athena-utils'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.licenses    = ['MIT']
   s.summary     = 'Athena Utils'
   s.description = 'Tools for querying AWS Athena'
@@ -15,5 +15,4 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'aws-sdk-athena'
   s.add_runtime_dependency 'aws-sdk-s3'
-  s.add_runtime_dependency 'csv-utils'
 end

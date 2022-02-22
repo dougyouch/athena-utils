@@ -4,4 +4,3 @@ source 'http://rubygems.org'
 
 gem 'aws-sdk-athena'
 gem 'aws-sdk-s3'
-gem 'csv-utils'
