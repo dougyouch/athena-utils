@@ -18,7 +18,7 @@ OptionParser.new do |opts|
   end
 
   opts.on("-w WORK_GROUP", "Athena Work Group, default: primary") do |v|
-    options[:output_location] = v
+    options[:work_group] = v
   end
 
   opts.on("-e", "--execute QUERY", "Execute SQL Query") do |v|
