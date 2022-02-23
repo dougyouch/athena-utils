@@ -5,9 +5,9 @@ module AthenaUtils
     DEFAULT_WAIT_TIME = 3 # seconds
 
     # database is the name of the Athena DB
-    # output_location is the full S3 path to store the results of Athena queries
+    # work_group is Athena Work Group to use with queries
     attr_reader :database,
-                :output_location
+                :work_group
 
     # wait_time is time to wait before checking query results again
     attr_accessor :wait_time
@@ -15,9 +15,9 @@ module AthenaUtils
     attr_writer :aws_athena_client,
                 :aws_s3_client
 
-    def initialize(database, output_location, wait_time = DEFAULT_WAIT_TIME)
+    def initialize(database, work_group, wait_time = DEFAULT_WAIT_TIME)
       @database = database
-      @output_location = output_location
+      @work_group = work_group
       @wait_time = wait_time
     end
 
@@ -48,9 +48,7 @@ module AthenaUtils
         query_execution_context: {
           database: database
         },
-        result_configuration: {
-          output_location: output_location
-        }
+        work_group: work_group
       )
 
       response.query_execution_id
