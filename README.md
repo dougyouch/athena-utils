@@ -74,3 +74,34 @@ while(row = users_results.csv.shift)
   # do something
 end
 ```
+
+## Command-Line Utility
+
+Execute 1 of queries without running to the AWS console.
+
+```
+> athena -h
+Usage: athena [options]
+    -d, --database DATABASE          Athena DB
+    -w, --work-group WORK_GROUP      Athena Work Group, default: primary
+    -e, --execute QUERY              Execute SQL Query
+    -s, --save FILE                  Save query results to file
+    -c, --console                    Execute query and makes results available in irb
+```
+
+Example:
+
+```
+athena -d test_db -e "SELECT * FROM users WHERE created_at >= Date('2022-01-01')"
+```
+
+Outputs
+
+```
+"id","name","email","created_at"
+"5","Foo","foo@example.com","2022-02-01"
+```
+
+Working in the console
+
+The console encapsulates the Athena client in a global athena method.  The results of the Athena query are availble in a global results method.
