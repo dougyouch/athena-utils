@@ -16,8 +16,8 @@ Create an Athena client and wait for results.
 require 'athena-utils'
 
 athena_database = 'test_db'
-athena_workspace = 'primary'
-athena_client = AthenaUtils::AthenaClient.new(athena_database, athena_workspace)
+athena_work_group = 'primary'
+athena_client = AthenaUtils::AthenaClient.new(athena_database, athena_work_group)
 
 results = athena_client.query("SELECT * FROM users WHERE created_at >= Date('2022-01-01')")
 results.first
@@ -30,8 +30,8 @@ Execute multiple queries and wait for results.
 require 'athena-utils'
 
 athena_database = 'test_db'
-athena_workspace = 'primary'
-athena_client = AthenaUtils::AthenaClient.new(athena_database, athena_workspace)
+athena_work_group = 'primary'
+athena_client = AthenaUtils::AthenaClient.new(athena_database, athena_work_group)
 
 # contains table_name => query_execution_id
 query_executions = {}
