@@ -11,17 +11,17 @@ options = {
   console: false
 }
 OptionParser.new do |opts|
-  opts.banner = "Usage: athena [options]"
+  opts.banner = 'Usage: athena [options]'
 
-  opts.on("-d", "--database DATABASE", "Athena DB") do |v|
+  opts.on('-d', '--database DATABASE', 'Athena DB') do |v|
     options[:database] = v
   end
 
-  opts.on("-w WORK_GROUP", "Athena Work Group, default: primary") do |v|
+  opts.on('-w', '--work-group WORK_GROUP', 'Athena Work Group, default: primary') do |v|
     options[:work_group] = v
   end
 
-  opts.on("-e", "--execute QUERY", "Execute SQL Query") do |v|
+  opts.on('-e', '--execute QUERY', 'Execute SQL Query') do |v|
     options[:query] = v
   end
 
