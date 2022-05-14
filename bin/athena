@@ -8,7 +8,9 @@ options = {
   work_group: 'primary',
   query: nil,
   save: nil,
-  console: false
+  console: false,
+  pretty_print: false,
+  jsonl: false
 }
 OptionParser.new do |opts|
   opts.banner = 'Usage: athena [options]'
@@ -32,6 +34,14 @@ OptionParser.new do |opts|
   opts.on('-c', '--console', 'Execute query and makes results available in irb') do
     options[:console] = true
   end
+
+  opts.on('-p', '--pretty-print', 'Display results vertically') do
+    options[:pretty_print] = true
+  end
+
+  opts.on('-j', '--jsonl', 'Display results in JSONL format') do
+    options[:jsonl] = true
+  end
 end.parse!
 
 raise('must specify a database') unless options[:database]
@@ -49,13 +59,33 @@ if options[:query]
   end
 
   if options[:save]
-    results.save(options[:save])
+    if options[:jsonl]
+      results.save_in_jsonl(options[:save])
+    else
+      results.save(options[:save])
+    end
     exit
   end
 
   if options[:console]
     require 'irb'
     IRB.start
+  elsif options[:pretty_print]
+    cnt = 1
+    results.each do |row|
+      print "\n" if cnt > 1
+      puts "-------------------- Result #{cnt} --------------------"
+      row.each do |header, value|
+        puts "#{header}: #{value}"
+      end
+      cnt += 1
+    end
+  elsif options[:jsonl]
+    require 'json'
+
+    results.each do |row|
+      print row.to_json + "\n"
+    end
   else
     io = results.s3_object.body
     while chunk = io.read(8192)

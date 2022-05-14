@@ -40,6 +40,16 @@ module AthenaUtils
       )
     end
 
+    def save_in_jsonl(file)
+      require 'json'
+
+      File.open(file, 'wb') do |out|
+        each do |row|
+          out.print(row.to_json + "\n")
+        end
+      end
+    end
+
     def csv
       @csv ||= CSV.new(s3_object.body)
     end
