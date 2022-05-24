@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'athena-utils'
-  s.version     = '0.2.2'
+  s.version     = '0.2.3'
   s.licenses    = ['MIT']
   s.summary     = 'Athena Utils'
   s.description = 'Tools for querying AWS Athena'

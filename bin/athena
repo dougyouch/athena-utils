@@ -24,7 +24,7 @@ OptionParser.new do |opts|
   end
 
   opts.on('-e', '--execute QUERY', 'Execute SQL Query') do |v|
-    options[:query] = v
+    options[:query] = v =~ /^@/ ? File.read(v[1..-1]) : v
   end
 
   opts.on('-s', '--save FILE', 'Save query results to file') do |v|
